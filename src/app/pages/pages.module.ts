@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ListComponent } from './list/list.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -10,6 +11,7 @@ import { PokemonComponent } from './pokemon/pokemon.component';
   declarations: [ListComponent, PokemonComponent],
   imports: [
     CommonModule,
+    FormsModule,
     PagesRoutingModule
   ]
 })

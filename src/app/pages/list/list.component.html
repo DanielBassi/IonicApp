@@ -1,16 +1,32 @@
-<ion-header>
+<ion-header color="primary">
     <ion-toolbar>
         <ion-title>Pokemons</ion-title>
     </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar (ionInput)="search($event.target.value)" showCancelButton="always" placeholder="¿Qué Pokemon buscas?..."></ion-searchbar>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [scrollEvents]="true" (ionScroll)="getScrollPos($event.detail.scrollTop)">
     <ion-list>
         <ion-item *ngFor="let item of dataSource" [routerLink]="['/pokemon', item.id]" routerLinkActive="router-link-active">
             <ion-avatar slot="start">
                 <ion-img [src]="url"></ion-img>
             </ion-avatar>
-            <ion-label>{{ item.name }}</ion-label>
+            <ion-label>
+                <h1>{{ item.name }}</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, dolore quisquam. Pariatur.</p>
+            </ion-label>
         </ion-item>
     </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <div class="back-to-top-btn" *ngIf="backToTop" (click)="gotToTop()">
+        <ion-icon name="chevron-up-outline"></ion-icon>
+    </div>
+
 </ion-content>

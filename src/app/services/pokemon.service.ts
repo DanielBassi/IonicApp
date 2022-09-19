@@ -15,13 +15,22 @@ export class PokemonService {
     private http: HttpClient
   ) { }
 
-  public getListPaginatePokemonList(limit: number = 10, offset: number = 0): Observable<any[]>{
+  public async getListPaginatePokemonList(limit: number = 10, offset: number = 0): Promise<any>{
     return this.http.get(`${this.urlApi}?limit=${limit}&offset=${offset}`)
-    .pipe(map((result: any) => result.results.map((res: any) => ({
-      id: res.url.split(this.urlApi)[1].replace('/', ''),
-      url: res.url,
-      name: res.name
-    }))));
+    .pipe(
+      map((response: any) => response.results.map(async (result: any) => (
+        await this.getAsyncPokemonDetail(result.url.split(this.urlApi)[1].replace('/', '')).then(pokemon => pokemon)
+      )))
+    );
+    /* .pipe(map((result: any) => result.results.map((res: any) => (
+      this.getPokemonDetail(res.url.split(this.urlApi)[1].replace('/', '')).subscribe(res => {
+        return res
+      });
+    )))); */
+  }
+
+  async getAsyncPokemonDetail(id: string): Promise<any>{
+    return await this.getPokemonDetail(id).toPromise().then(pokemon => pokemon);
   }
 
   public getPokemonDetail(id: string): Observable<any>{
