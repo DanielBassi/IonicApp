@@ -1,0 +1,65 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref=""></ion-back-button>
+        </ion-buttons>
+        <ion-title class="ion-text-uppercase">{{ pokemon?.name }}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid class="ion-no-padding">
+        <ion-row>
+            <ion-col>
+                <ion-slides pager="true" [options]="slideOpts">
+                    <ion-slide *ngIf="pokemon?.sprites?.back_default">
+                        <ion-img [src]="pokemon?.sprites?.back_default"></ion-img>
+                    </ion-slide>
+                    <ion-slide *ngIf="pokemon?.sprites?.back_female">
+                        <ion-img [src]="pokemon?.sprites?.back_female"></ion-img>
+                    </ion-slide>
+                    <ion-slide *ngIf="pokemon?.sprites?.back_shiny">
+                        <ion-img [src]="pokemon?.sprites?.back_shiny"></ion-img>
+                    </ion-slide>
+                    <ion-slide *ngIf="pokemon?.sprites?.back_shiny_female">
+                        <ion-img [src]="pokemon?.sprites?.back_shiny_female"></ion-img>
+                    </ion-slide>
+                    <ion-slide *ngIf="pokemon?.sprites?.front_female">
+                        <ion-img [src]="pokemon?.sprites?.front_female"></ion-img>
+                    </ion-slide>
+                    <ion-slide *ngIf="pokemon?.sprites?.front_shiny_female">
+                        <ion-img [src]="pokemon?.sprites?.front_shiny_female"></ion-img>
+                    </ion-slide>
+                    <ion-slide *ngIf="pokemon?.sprites?.front_default">
+                        <ion-img [src]="pokemon?.sprites?.front_default"></ion-img>
+                    </ion-slide>
+                </ion-slides>
+            </ion-col>
+        </ion-row>
+        <ion-row class="ion-no-padding">
+            <ion-col>
+                <ion-img [src]="pokemon?.sprites?.front_default"></ion-img>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col class="ion-text-center">
+                <h1>{{ pokemon?.name }}</h1>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-list *ngIf="pokemon?.abilities; else noAbilities">
+                    <ion-item *ngFor="let abilitie of pokemon?.abilities">
+                        <ion-label>{{ abilitie?.ability?.name }}</ion-label>
+                    </ion-item>
+                </ion-list>
+                <ng-template #noAbilities>
+                    <ion-text>
+                        <p class="ion-text-center">No tiene habilidades</p>
+                    </ion-text>
+                </ng-template>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

@@ -1,7 +1,10 @@
 {
   "name": "IonicApp",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
   },
   "type": "angular"
 }
